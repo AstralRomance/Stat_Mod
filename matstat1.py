@@ -22,44 +22,47 @@ def korrel(dst, m_w, graph_counter):
     k = []
     summ2 = 0.0
     summ1 = 0.0
-    for f in range(len(dst)):
+    while f < len(dst):
         for i in range(len(dst)-f):
             summ1 += (dst[i]-m_w)*(dst[i+f]-m_w)
         for i in dst:
             summ2 += (i-m_w)**2
         k.append(summ1/summ2)
-    file_k = open('coefficient.txt', 'w')
+        f+=1
     vizual_rez(k, graph_counter)
-    k.sort()
-    for i in k:
-        file_k.write(str(i) + '\n')
-    file_k.close()
   
 
 def vizual_rez(sol_array, graph_counter):
     counter = [i+1 for i in range(len(sol_array))]
-    fig = plt.figure(dpi = 80, figsize = (512/80, 384/80))
-    plt.axis([0, 100, -1, 1])
-    plt.grid()
-    plt.plot(counter, sol_array)
-    filename = 'rez' + str(graph_counter) + '.png'
-    fig.savefig(filename)       
+    fig = plt.figure(dpi = 160, figsize = (1080/160, 720/160))
+    print('gk is ' + str(graph_counter))
+    if graph_counter == 1:    
+        plt.axis([0, 100, -0.1, 0.1])
+        plt.grid()
+        plt.plot(counter, sol_array)
+        filename = 'rez' + str(graph_counter) + '.png'
+        fig.savefig(filename)
+    elif graph_counter == 2:  
+        plt.axis([0, 500, -0.05, 0.05])
+        plt.grid()
+        plt.plot(counter, sol_array)
+        filename = 'rez' + str(graph_counter) + '.png'
+        fig.savefig(filename)
+    elif graph_counter == 3:    
+        plt.axis([0, 5000, -0.004, 0.004])
+        plt.grid()
+        plt.plot(counter, sol_array)
+        filename = 'rez' + str(graph_counter) + '.png'
+        fig.savefig(filename)
 
 
+distr_cnt = [100,1000,10000]
 gk = 1
-distr = np.random.uniform(0, 1, 100)
-print('Мат ожидание '+ str(math_waiting(distr)))
-print('Дисперсия '+ str(dispersion(distr, math_waiting(distr))))
-korrel(distr, math_waiting(distr), gk)
-gk+=1
-distr.fill(0)
-distr = np.random.uniform(0, 1, 1000)
-print('Мат ожидание '+ str(math_waiting(distr)))
-print('Дисперсия '+ str(dispersion(distr, math_waiting(distr))))
-korrel(distr, math_waiting(distr), gk)
-gk+=1
-distr.fill(0)
-distr = np.random.uniform(0, 1, 10000)
-print('Мат ожидание '+ str(math_waiting(distr)))
-print('Дисперсия '+ str(dispersion(distr, math_waiting(distr))))
-korrel(distr, math_waiting(distr), gk)
+for i in distr_cnt:
+    distr = np.random.uniform(0, 1, i)
+    print('Мат ожидание '+ str(math_waiting(distr)))
+    print('Дисперсия '+ str(dispersion(distr, math_waiting(distr))))
+    korrel(distr, math_waiting(distr), gk)
+    distr.fill(0)
+    gk += 1
+    
