@@ -29,7 +29,7 @@ def math_waiting(dst):
 def dispersion(dst, m_w):
     summ = 0.0
     for i in dst:
-        summ = (i-m_w)**2
+        summ += (i-m_w)**2
     return summ/len(dst)
 
 
