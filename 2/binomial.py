@@ -47,6 +47,3 @@ for i in nmb_nmb:
     bin_d = binomial_distr(i, 0.2)
     print('Матожидание ' + str(bin_d.bin_math_exp()))
     print('Дисперсия ' + str(bin_d.bin_disp()))
-
-
-

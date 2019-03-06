@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import os
 
 
 class uniform_distribution:
@@ -13,7 +14,7 @@ class uniform_distribution:
         for k in self.u:
             self.distr.append(self.make_uniform_number(k))
         self.math_exp = 0.0
-        self.disp = 0.0          
+        self.disp = 0.0       
         
     def math_exp_uni(self):
         self.math_exp = (self.min_dst + self.max_dst)/2
@@ -33,12 +34,3 @@ class uniform_distribution:
         for i in self.distr:
             f.write(str(i) + ' ')
         f.close()
-
-    
-
-nmb_nmb = [100, 1000, 10000]
-for j in nmb_nmb:
-    unf = uniform_distribution(j)
-    unf.math_exp_uni()
-    unf.dispersion_uni()
-    unf.write_to_file()
