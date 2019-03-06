@@ -14,7 +14,7 @@ class uniform_distribution:
         for k in self.u:
             self.distr.append(self.make_uniform_number(k))
         self.math_exp = 0.0
-        self.disp = 0.0       
+        self.disp = 0.0
         
     def math_exp_uni(self):
         self.math_exp = (self.min_dst + self.max_dst)/2
@@ -26,6 +26,29 @@ class uniform_distribution:
         return int((self.max_dst-self.min_dst+1)*nmb+self.min_dst)
 
     def write_to_file(self):
+        path = ''
+        path = os.getcwd()
+        if len(self.distr) == 100:
+            path += '\\100'
+            try:
+                os.mkdir(path)
+                os.chdir(path)
+            except OSError:
+                os.chdir(path)
+        elif len(self.distr) == 1000:
+            path += '\\1000'
+            try:
+                os.mkdir(path)
+                os.chdir(path)
+            except OSError:
+                os.chdir(path)
+        else:
+            path += '\\10000'
+            try:
+                os.mkdir(path)
+                os.chdir(path)
+            except OSError:
+                os.chdir(path)
         filename = 'равномерное ' + str(len(self.distr)) + '.txt'
         f = open(filename, 'w')
         f.write('Чисел в распределении: ' + str(len(self.distr)) + '\n')

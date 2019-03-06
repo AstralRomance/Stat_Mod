@@ -19,12 +19,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.uniButton.clicked.connect(self.make_uniform_distr)
         
     def make_uniform_distr(self):
-        path = os.getcwd()
-        path += '\\uniform'
         proc = Thread(target = self.thread_target_uni, args=())
         proc.start()
 
     def thread_target_uni(self):
+        path= os.getcwd()
+        path += '\\uniform'
+        try:
+            os.mkdir(path)
+            os.chdir(path)
+        except OSError:
+            os.chdir(path)
         len_of_distr = [100, 1000, 10000]
         for i in len_of_distr:
             unf = uniform_distribution(i)
